@@ -51,7 +51,7 @@ def create_generic_go_file(*args):
     func main() { fmt.Println("Start Here!")}
         """)
 
-    subprocess.run(['gofmt', '-w', '.'])
+    run_file(*args)
 
 def user_input(msg: str = 'Enter: ') -> str:
     """ get user answer """
