@@ -30,4 +30,36 @@ func main() {
 	n := make([]int, 2)
 	copy(n, nums[1:])
 	fmt.Println(n, nums)
+	////
+	hash := map[string]int{
+		"java":   35,
+		"python": 10,
+		"perl":   15,
+		"c":      40,
+	}
+	fmt.Println(hash)
+	for key, value := range hash {
+		fmt.Println(key, value)
+	}
+	/// add
+	hash["clojure"] = 15
+	hash["erlang"] = 25
+	fmt.Println(hash)
+	delete(hash, "perl")
+	fmt.Println(hash)
+	/// set concept in golang
+	var counter map[int]struct{} = map[int]struct{}{}
+	values := []int{1, 7, 9, 1, 3, 6, 8, 2, 4, 7, 1, 2, 6, 1}
+	for _, value := range values {
+		counter[value] = struct{}{}
+	}
+	fmt.Println(counter)
+	/// frequency table
+	freq := map[int]int{}
+	for _, value := range values {
+		freq[value]++
+	}
+	fmt.Println(freq)
+	//// practice with struct
+	practiceStruct()
 }
