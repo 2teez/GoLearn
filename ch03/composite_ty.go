@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 func main() {
@@ -62,4 +63,31 @@ func main() {
 	fmt.Println(freq)
 	//// practice with struct
 	practiceStruct()
+	///
+	randomNumbers := make([]int, 100)
+	for i := 0; i < 100; i += 1 {
+		randomNumbers[i] = rand.Intn(100)
+	}
+	fmt.Println(randomNumbers)
+	fmt.Println(freqTable(randomNumbers))
+	for _, value := range randomNumbers {
+		switch {
+		case value%6 == 0:
+			fmt.Println(value, "Six")
+		case value%2 == 0:
+			fmt.Println(value, "Two")
+		case value%3 == 0:
+			fmt.Println(value, "Three")
+		default:
+			fmt.Println(value, "Never mind")
+		}
+	}
+}
+
+func freqTable(numbers []int) (result map[int]int) {
+	result = map[int]int{}
+	for _, v := range numbers {
+		result[v]++
+	}
+	return
 }
