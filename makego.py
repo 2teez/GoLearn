@@ -35,7 +35,7 @@ def run_file(*args):
 def make_package_file(pwd):
     """ make a package file `go.mod` if the user wanted """
     print(pwd)
-    if user_input("Will you want ro make a go.mod file? ") == 'y':
+    if user_input("Will you want to make a go.mod file? ") == 'y':
         subprocess.run(['go', 'mod', 'init', pwd])
     return None
 
