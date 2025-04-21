@@ -83,8 +83,9 @@ while getopts "${optstring}" opt; do
         d)
             filename="${OPTARG}"
             filename=$(ls | grep -i "${filename}")
+
             if ! [[ -e "${filename}" ]]; then
-                echo "${filename} doesn't exists."
+                echo "${OPTARG} doesn't exists."
                 exit 0
             fi
 
