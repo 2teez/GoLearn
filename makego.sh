@@ -19,6 +19,13 @@ function help() {
 # write out a basic go file
 function generate_go_file() {
     filename="${1}"
+
+    if [[ -e "${filename}" ]]; then
+        echo "The file ${filename} exists, and can't be overwritten."
+        exit 1
+    fi
+
+    # basic golang line to write to file
     echo "
         package main
 
