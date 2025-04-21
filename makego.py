@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
+import os
 
 class HyphenError(Exception):
     def __init__(self, msg, /):
@@ -17,7 +18,7 @@ def check_option(opt) -> str:
 
 def check_file_exist(file: str) -> bool:
     """ check if the file exists in the directory """
-    import os
+
     return file in os.listdir('.')
 
 
@@ -30,6 +31,13 @@ def run_file(*args):
     else:
         filename = args[-1]
         subprocess.run(['go', 'run', filename])
+
+def make_package_file(pwd):
+    """ make a package file `go.mod` if the user wanted """
+    print(pwd)
+    if user_input("Will you want ro make a go.mod file? ") == 'y':
+        subprocess.run(['go', 'mod', 'init', pwd])
+    return None
 
 def create_generic_go_file(*args):
     """ create a go file with main func """
@@ -52,13 +60,15 @@ def create_generic_go_file(*args):
         """)
 
     run_file(*args)
+    #pwd = os.getcwd() # get present working directory
+    #make_package_file(pwd) # use later
 
 def user_input(msg: str = 'Enter: ') -> str:
     """ get user answer """
 
     answer = input(msg).strip().lower()
     while answer not in ['n', 'y']:
-        print(f'{answer} invalid')
+        print(f'{answer} invalid. Use only y or n.')
         answer = input(msg).strip().lower()
 
     return answer
