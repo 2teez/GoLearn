@@ -13,6 +13,7 @@ function help() {
     -d  delete a go file.
     -g  generate and run a generic go file.
     -h  print the help function of the script.
+    -r  to run a specified go file
     "
 }
 
