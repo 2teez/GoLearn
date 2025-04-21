@@ -29,6 +29,10 @@ func main() {
 	fmt.Println(ap, *ap.middleName, *p.middleName)
 	ap2 := makePersonPointer("java", "gosling", 67)
 	fmt.Println(ap2)
+	//
+	teams := []Team{Team{}, Team{}, Team{}}
+	league := League{teams, map[string]wins{"": wins(2)}}
+	fmt.Println(league)
 }
 
 func makePersonPointer(name, mname string, age int) *person {
