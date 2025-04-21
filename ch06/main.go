@@ -27,4 +27,10 @@ func main() {
 	///
 	fmt.Println(add(1, 7, 8), add("java", "script"),
 		reduce(0, []int{4, 8, 2, 1}))
+	///
+	value := myNumber[myInt]{value: 5}
+	printIt(value)
+
+	valuef := myNumber[myFloat]{value: 22.0 / 7}
+	printIt(valuef)
 }
