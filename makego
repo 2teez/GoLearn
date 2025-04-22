@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Description: Make a script that lunches golang program
+# Description: Make a script that launches golang program
 # Date: 21/04/25
 # Author: omitida
 
@@ -59,7 +59,10 @@ function format_code() {
 }
 
 # check and start the script here
-[[ "${#}" -ne 2 ]] && help
+if [[ "${#}" -ne 2 ]]; then
+    help
+    exit 1
+fi
 
 # options string to use
 optstring="b:d:g:r:h"
