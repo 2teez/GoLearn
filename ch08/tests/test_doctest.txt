@@ -1,0 +1,7 @@
+# using doctest to test the code
+>>> from ch08.mymaths.mymaths import add_numbers
+>>> add_numbers(2, 3)
+5
+>>> a, b = 7, 2
+>>> add_numbers(a, b)
+>>> 9
