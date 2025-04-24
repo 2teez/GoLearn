@@ -6,7 +6,7 @@ import (
 
 func main() {
 	fmt.Println("Hello, World!")
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		PrintGreet()
 		PrintCounter(i)
 	}
