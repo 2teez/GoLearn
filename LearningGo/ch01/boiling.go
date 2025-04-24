@@ -1,11 +1,13 @@
 package main
 
-import ("fmt")
+import (
+	"fmt"
+)
 
 const boilingF = 212.0
 
 func main() {
 	var f = boilingF
-	var c = (f - 32) * 5/9
+	var c = (f - 32) * 5 / 9
 	fmt.Printf("Boiling Point = %gF, %gC\n", f, c)
 }
