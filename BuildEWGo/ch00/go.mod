@@ -1,3 +1,3 @@
-module ch00
+module github.com/practice/addition
 
 go 1.24.2
