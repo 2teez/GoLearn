@@ -65,7 +65,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:h"
+optstring="b:d:g:r:n:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -124,6 +124,33 @@ while getopts "${optstring}" opt; do
              filename="${OPTARG}"
              file_extension_check "${filename,,}" "go"
              go run "${filename}"
+        ;;
+        n)
+            filename="${OPTARG}"
+            echo "Filename ${filename} is ignored."
+            echo "All files needed are generated using the current working directory!"
+            filename="${PWD}"
+
+            filename="$(basename $(dirname "${filename}"))_$(basename ${filename}).go"
+            test_file="${filename}_test.go"
+
+            touch "${filename,,}" "${test_file,,}"
+
+            # write package line into the generated files
+            echo "package main" > "${filename}"
+            echo "package main" > "${test_file}"
+
+            file_extension_check "${filename}" "go"
+            file_extension_check "${test_file}" "go"
+
+            generate_go_file "main.go"
+            format_code "main.go"
+
+            go mod init $(basename "${PWD}")
+            go mod tidy
+
+            go build .
+            go run .
         ;;
         h)
             help
