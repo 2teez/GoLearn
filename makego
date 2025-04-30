@@ -13,6 +13,8 @@ function help() {
     -d  delete a go file.
     -g  generate and run a generic go file.
     -h  print the help function of the script.
+    -t  ro run a test file in the current working directory
+    -n  to create all the files needed including the test file.
     -r  to run a specified go file
     "
 }
@@ -65,7 +67,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:n:h"
+optstring="b:d:g:r:n:t:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -132,7 +134,7 @@ while getopts "${optstring}" opt; do
             filename="${PWD}"
 
             filename="$(basename $(dirname "${filename}"))_$(basename ${filename}).go"
-            test_file="${filename}_test.go"
+            test_file="${filename%.*}_test.go"
 
             touch "${filename,,}" "${test_file,,}"
 
@@ -151,6 +153,9 @@ while getopts "${optstring}" opt; do
 
             go build .
             go run .
+        ;;
+        t)
+            go test -v -cover .
         ;;
         h)
             help
