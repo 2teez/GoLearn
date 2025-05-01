@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"strings"
 )
 
 type Shape interface {
@@ -16,7 +17,7 @@ type Triangle struct {
 }
 
 func (t Triangle) Name() string {
-	return fmt.Sprintf("%v", reflect.TypeOf(t))
+	return getRealName(t)
 }
 
 func (t Triangle) Area() float64 {
@@ -28,7 +29,7 @@ type Rectangle struct {
 }
 
 func (r Rectangle) Name() string {
-	return fmt.Sprintf("%v", reflect.TypeOf(r))
+	return getRealName(r)
 }
 
 func (r Rectangle) Area() float64 {
@@ -40,9 +41,17 @@ type Square struct {
 }
 
 func (s Square) Name() string {
-	return fmt.Sprintf("%v", reflect.TypeOf(s))
+	return getRealName(s)
 }
 
 func (s Square) Area() float64 {
 	return math.Pow(s.Length, 2.0)
+}
+
+func getRealName(s Shape) string {
+	named := fmt.Sprintf("%v", reflect.TypeOf(s))
+	if name, ok := strings.CutPrefix(named, "shape."); ok {
+		named = name
+	}
+	return named
 }
