@@ -17,6 +17,7 @@ func main() {
 	}
 
 	openAndReadFile("main.go")
-	readCSVFile("Hospital Visits.csv")
-	openAndReadFile("Hospital Visits.csv")
+	readCSVFile("Hospital Goals.csv")
+	openAndReadFile("Hospital Goals.csv")
+	openAndReadAll("goworkshop_ch05.go")
 }
