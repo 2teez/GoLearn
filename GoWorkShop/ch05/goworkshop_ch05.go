@@ -47,6 +47,25 @@ func openAndReadFile(filename string) {
 	}
 }
 
+func openAndReadAll(filename string) {
+	_, err := os.Stat(filename)
+	if err != nil {
+		if os.IsNotExist(err) {
+			fmt.Println(err)
+		}
+	}
+	f, err := os.Open(filename)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer f.Close()
+	content, err := io.ReadAll(f)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(content))
+}
+
 func readCSVFile(filename string) {
 	_, err := os.Stat(filename)
 	if err != nil {
