@@ -14,6 +14,7 @@ function help() {
     -g  generate and run a generic go file.
     -h  print the help function of the script.
     -t  to run a test file in the current working directory
+    -s  to create a standalone go file
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
     "
@@ -67,7 +68,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:n:t:h"
+optstring="b:d:g:r:n:t:s:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -158,6 +159,16 @@ while getopts "${optstring}" opt; do
 
             go build .
             go run .
+        ;;
+        s)
+            filename="${OPTARG}"
+
+            # call the function with parameters
+            file_extension_check "${filename,,}" "go"
+            generate_go_file "${filename}"
+            format_code "${filename}"
+
+            go run "${filename}"
         ;;
         t)
             go test -v -cover .
