@@ -121,8 +121,11 @@ while getopts "${optstring}" opt; do
             format_code "${filename}"
 
             directory="${filename%.*}"
-            mkdir "${directory}" && mv "${filename}" "${directory}"
-            cd "${directory}" && go run "${filename}"
+            mkdir "${directory}" && mv "${filename}" "${directory}/main.go"
+            cd "${directory}"
+            go mod init "${directory}"
+            go build .
+            go run .
         ;;
         r)
              filename="${OPTARG}"
