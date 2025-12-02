@@ -13,7 +13,7 @@ function help() {
     -d  delete a go file.
     -g  generate and run a generic go file.
     -h  print the help function of the script.
-    -t  ro run a test file in the current working directory
+    -t  to run a test file in the current working directory
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
     "
@@ -120,7 +120,9 @@ while getopts "${optstring}" opt; do
             generate_go_file "${filename}"
             format_code "${filename}"
 
-            go run "${filename}"
+            directory="${filename%.*}"
+            mkdir "${directory}" && mv "${filename}" "${directory}"
+            cd "${directory}" && go run "${filename}"
         ;;
         r)
              filename="${OPTARG}"
