@@ -146,7 +146,22 @@ while getopts "${optstring}" opt; do
             fi
             go build .
             go run .
-            rm "${directory}"  # clean up by deleting the binary file
+            while read -p "Retain the binary file [y|n]?: " ans; do
+                case "${ans}" in
+                    y)
+                        echo "${directory} is preserved!"
+                        exit 0
+                        ;;
+                    n)
+                        rm "${directory}"  # clean up by deleting the binary file
+                        exit 0
+                        ;;
+                    *)
+                        echo "Invalid answer: ${ans}. Use either y or n."
+                        continue
+                        ;;
+                esac
+            done
             ;;
         n)
             filename="${OPTARG}"
