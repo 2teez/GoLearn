@@ -14,6 +14,11 @@ func main() {
 		return
 	}
 
+	// using old traditional for loop
+	for i := 0; i < len(os.Args); i++ {
+		fmt.Println(i+1, os.Args[i])
+	}
+	// using forloop with range
 	for ind, value := range os.Args[1:] {
 		fmt.Println(ind+1, value)
 	}
