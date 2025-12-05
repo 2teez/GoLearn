@@ -17,6 +17,7 @@ function help() {
     -s  to create a standalone go file
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
+    -R  to run a directory
     "
 }
 
@@ -68,7 +69,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:n:t:s:h"
+optstring="b:d:g:r:R:n:t:s:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -133,6 +134,20 @@ while getopts "${optstring}" opt; do
              file_extension_check "${filename,,}" "go"
              go run "${filename}"
         ;;
+        R)
+            directory="${OPTARG}"
+            cd "${directory}"
+            result=$(ls "${directory}" 2&>>/dev/null | grep -i 'go.mod' | wc -l)
+            if [[ "${result}" == 0 ]]; then
+                ./"{0}" -g "${directory}"
+                go build .
+                go run .
+                exit 0
+            fi
+            go build .
+            go run .
+            rm "${directory}"  # clean up by deleting the binary file
+            ;;
         n)
             filename="${OPTARG}"
             echo "Filename ${filename} is ignored."
