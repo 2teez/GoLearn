@@ -28,6 +28,10 @@ func main() {
 	printArray(m)
 	printAny(cap(m), msgs...)
 	printAny(cap(msgs))
+	// using an array and slice
+	primes := [5]int{2, 3, 5, 7, 11}
+	printArray(primes[:]) // converting an array to slice..
+
 }
 
 func printArray(t []int) {
