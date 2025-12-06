@@ -11,6 +11,11 @@ type person struct {
 	age  int
 }
 
+type Employee struct {
+	firstName, lastName string
+	id                  int
+}
+
 func main() {
 	langs := map[string]int{}
 	fmt.Println(langs)
@@ -47,9 +52,29 @@ func main() {
 	}
 	clojure.Print()
 	literalPerson.Print()
+	newPerson("Erlang", 35).Print()
+	// exercise
+	var emp struct {
+		firstName, lastName string
+		id                  int
+	}
+	emp.firstName = "javaScript"
+	emp.lastName = "Erik"
+	emp.id = 21
+	fmt.Println(emp)
+	fmt.Println(struct {
+		firstName, lastName string
+		id                  int
+	}{id: 5,
+		firstName: "rust",
+		lastName:  "crab"})
+
+	empl1 := Employee{"ada", "queen", 3}
+	empl2 := Employee{id: 4, lastName: "larry", firstName: "perl"}
+	fmt.Println(empl1, empl2)
 }
 
-func (p *person) New(name string, age int) *person {
+func newPerson(name string, age int) *person {
 	return &person{name, age}
 }
 
