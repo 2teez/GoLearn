@@ -25,4 +25,14 @@ func main() {
 		log.Println(err)
 	}
 
+	// check the getfloat function
+	age, err := readers.GetFloat("Enter your age: ")
+	if err != nil {
+		defer func() {
+			recover()
+			wrt.Pp("Get me someone's age?!")
+		}()
+		log.Panic(err)
+	}
+	wrt.Pp(age)
 }
