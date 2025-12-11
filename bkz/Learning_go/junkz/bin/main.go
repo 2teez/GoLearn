@@ -7,6 +7,7 @@ import (
 	wrt "junkz/pkg/src/writers"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -35,4 +36,11 @@ func main() {
 		log.Panic(err)
 	}
 	wrt.Pp(age)
+	// use read a file
+	nerr := readers.ReadAFile("bin/main.go", func(s string) {
+		fmt.Println(strings.ToUpper(s))
+	})
+	if nerr != nil {
+		log.Fatal(nerr)
+	}
 }
