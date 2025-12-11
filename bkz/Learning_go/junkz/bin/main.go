@@ -3,6 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	calendar "junkz/pkg/src/calendar"
+	"junkz/pkg/src/events"
 	"junkz/pkg/src/readers"
 	wrt "junkz/pkg/src/writers"
 	"log"
@@ -43,4 +45,20 @@ func main() {
 	if nerr != nil {
 		log.Fatal(nerr)
 	}
+	// using calender local package
+	date, err := calendar.NewDate(1960, 10, 22)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%#v\n", date)
+
+	event, err := events.NewEvent("Mum's Birthday", &calendar.Date{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	event.SetYear(2026)
+	event.SetMonth(calendar.Aug)
+	event.SetDay(13)
+
+	fmt.Printf("%#v\n", event)
 }
