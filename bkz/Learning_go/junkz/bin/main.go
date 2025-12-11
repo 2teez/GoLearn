@@ -1,16 +1,28 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"junkz/pkg/src/readers"
+	wrt "junkz/pkg/src/writers"
 	"log"
+	"os"
 )
 
 func main() {
-	fmt.Println("Hello...")
+	fmt.Print("Enter a line: ")
 	n, err := readers.ReadLine()
 	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(n)
+	// using ReadString from bufio
+	wrt.Pp("Using ReadString from bufio package...")
+	anotherReader := bufio.NewReader(os.Stdin)
+	if line, err := anotherReader.ReadString('\n'); err == nil {
+		wrt.Pp(line)
+	} else {
+		log.Println(err)
+	}
+
 }
