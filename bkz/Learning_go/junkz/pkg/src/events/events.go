@@ -2,6 +2,7 @@ package events
 
 import (
 	"errors"
+	"fmt"
 	"junkz/pkg/src/calendar"
 	"unicode/utf8"
 )
@@ -31,4 +32,8 @@ func (e *Event) setTitle(title string) error {
 	}
 	e.Title = title
 	return nil
+}
+
+func (e *Event) String() string {
+	return fmt.Sprintf("Event: %s on this date: %s", e.Title, e.Date)
 }
