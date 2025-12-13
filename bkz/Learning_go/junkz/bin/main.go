@@ -60,5 +60,5 @@ func main() {
 	event.SetMonth(calendar.Aug)
 	event.SetDay(13)
 
-	fmt.Printf("%#v\n", event)
+	fmt.Printf("%s\n", event)
 }
