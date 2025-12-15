@@ -64,8 +64,8 @@ function format_code() {
 
 function make_a_test_file() {
     filename="${1}"
-    #filename="${filename#*.}"
-    #echo Test Fils is "${filename}_test.go"
+    filename="${filename%.*}"
+
     echo "
         package ${filename}
 
@@ -223,15 +223,13 @@ while getopts "${optstring}" opt; do
         ;;
         T)
             file="${OPTARG}"
-            if [[ -d "${file}" ]]; then
-                cd "${file}"
-                mkdir tests && cd tests
+            if [[ -f "${file}" ]]; then
                 make_a_test_file "${file}"
 
                 go fmt .
                 go test -v -cover .
             else
-                echo "need to be a directory!"
+                echo "need to be a file!"
                 exit 1
             fi
             ;;
