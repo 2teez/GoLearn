@@ -149,6 +149,9 @@ while getopts "${optstring}" opt; do
             go mod init "${directory}"
             go build .
             go run .
+
+            # rm the binary file NOT the directory
+            rm "${directory}"
         ;;
         r)
              filename="${OPTARG}"
