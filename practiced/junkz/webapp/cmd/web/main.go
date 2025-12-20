@@ -11,7 +11,5 @@ func main() {
 
 	log.Println("Starting server on :8118")
 	err := http.ListenAndServe(":8118", server)
-	if err != nil {
-		log.Fatal(err)
-	}
+	log.Fatal(err)
 }
