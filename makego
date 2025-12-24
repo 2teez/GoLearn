@@ -74,9 +74,10 @@ function make_a_test_file() {
         )
 
         func TestGeneric(t *testing.T) {
+            t.Parallel()
             ans := 2 + 5
             if ans != 7 {
-                t.Error(\"Maths doesn't work Again!...\")
+                t.Errorf(\"Maths doesn't work Again!...\")
             }
         }
             " > "${filename}_test.go"
