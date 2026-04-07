@@ -14,9 +14,11 @@ function help() {
     -g  generate and run a generic go file.
     -h  print the help function of the script.
     -t  to run a test file in the current working directory
+    -T  to run a test on a standalone go file
     -s  to create a standalone go file
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
+    -R  to build and run a go directory with mod.go
     -R  to run a directory
     "
 }
@@ -164,7 +166,7 @@ while getopts "${optstring}" opt; do
             cd "${directory}"
             result=$(ls "${directory}" 2&>>/dev/null | grep -i 'go.mod' | wc -l)
             if [[ "${result}" == 0 ]]; then
-                ./"{0}" -g "${directory}"
+                ./"${0}" -g "${directory}"
                 go build .
                 go run .
                 exit 0
