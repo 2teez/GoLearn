@@ -19,7 +19,6 @@ function help() {
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
     -R  to build and run a go directory with mod.go
-    -R  to run a directory
     "
 }
 
