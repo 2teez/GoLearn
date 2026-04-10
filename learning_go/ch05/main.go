@@ -11,6 +11,8 @@ type person struct {
 	Age       int
 }
 
+type Times func(int) int
+
 func main() {
 	people := []person{
 		{"Pat", "Patterson", 37},
@@ -31,4 +33,23 @@ func main() {
 		return people[i].LastName < people[j].LastName
 	})
 	fmt.Println(people)
+
+	// function returning functions
+	// make times table bases
+	tables := make([]Times, 0, 3)
+	for i := 2; i < 5; i++ {
+		tables = append(tables, times(i))
+	}
+
+	for i := range len(tables) {
+		fmt.Println("Times table for ", i+2, ":")
+		for j := 2; j <= 12; j++ {
+			fmt.Println(j, tables[i+1](j))
+		}
+	}
+}
+func times(base int) Times {
+	return func(factor int) int {
+		return base * factor
+	}
 }
