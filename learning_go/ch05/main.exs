@@ -10,6 +10,16 @@ defmodule Main do
     people |> Enum.sort_by(& &1.age) |> IO.inspect()
     people |> Enum.sort_by(& &1.first_name) |> IO.inspect()
     people |> Enum.sort_by(& &1.last_name) |> IO.inspect()
+
+    # read from a file
+    "main.go" |> read_file()
+  end
+
+  def read_file(filename) do
+    case File.read(filename) do
+      {:ok, content} -> content |> String.split() |> IO.puts()
+      {:error, _} -> IO.inspect("Error reading file: #{filename}")
+    end
   end
 end
 
