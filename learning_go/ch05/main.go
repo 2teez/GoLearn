@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"os"
 	"sort"
 )
 
@@ -44,12 +47,37 @@ func main() {
 	for i := range len(tables) {
 		fmt.Println("Times table for ", i+2, ":")
 		for j := 2; j <= 12; j++ {
-			fmt.Println(j, tables[i+1](j))
+			fmt.Println(j, tables[i](j))
 		}
 	}
+
+	// read file
+	args := os.Args
+	if len(args) < 2 {
+		log.Fatal("Usage args[0] <filename>")
+	}
+	readFile(args[1])
 }
 func times(base int) Times {
 	return func(factor int) int {
 		return base * factor
 	}
+}
+
+func readFile(filename string) {
+	file, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer file.Close()
+	data := make([]byte, 2048)
+	for {
+		n, err := file.Read(data)
+		if err == io.EOF {
+			break
+		}
+		fmt.Println(string(data[:n]))
+	}
+
 }
