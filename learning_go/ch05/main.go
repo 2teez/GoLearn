@@ -74,7 +74,10 @@ func readFile(filename string) {
 	data := make([]byte, 2048)
 	for {
 		n, err := file.Read(data)
-		if err == io.EOF {
+		if err != nil {
+			if err != io.EOF {
+				log.Fatal(err)
+			}
 			break
 		}
 		fmt.Println(string(data[:n]))
