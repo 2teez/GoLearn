@@ -1,45 +1,30 @@
-defmodule Stack do
-  defstruct data: []
+# load dependencies
+Code.require_file("stack.exs", __DIR__)
+Code.require_file("stacker.exs", __DIR__)
 
-  @type t :: %__MODULE__{data: [any()]}
-end
+# use alias
+alias Stack
+alias Stacker
 
-defmodule Stacker do
-  @spec push(Stack.t(), any()) :: Stack.t()
-  def push(%Stack{} = stack, item) do
-    %Stack{stack | data: [item | stack.data]}
-  end
-
-  @spec pop(Stack.t()) :: {any(), Stack.t()}
-  def pop(%Stack{} = stack) do
-    {stack.data |> Enum.reverse() |> hd(), %Stack{stack | data: rest(stack.data)}}
-  end
-
+defmodule Main do
   @doc """
-  Returns the rest of the list after the first element.
+  Returns a string representation of the stack for debugging purposes.
 
   ## Examples
 
-      iex> rest([1, 2, 3])
-      [2, 3]
-      iex> rest([1])
-      []
+      iex> stack = Stack.new([1, 2, 3])
+      iex> inspect(stack)
+      "Stack{data: [1, 2, 3]}"
   """
-  @spec rest([any()]) :: [any()]
-  defp rest([]), do: []
-  defp rest(list), do: list |> Enum.reverse() |> tl() |> Enum.reverse()
-end
-
-@spec inspect(Stack.t(), any()) :: String.t()
-defimpl Inspect, for: Stack do
-  def inspect(stack, _opts) do
-    "Stack{data: #{inspect(stack.data)}}"
+  # @spec inspect(Stack.t(), any()) :: String.t()
+  defimpl Inspect, for: Stack do
+    def inspect(stack, _opts) do
+      "Stack{data: #{inspect(stack.data)}}"
+    end
   end
-end
 
-defmodule Main do
   def run do
-    stack = %Stack{}
+    stack = Stack.new()
     stack = Stacker.push(stack, 1)
     stack = Stacker.push(stack, 2)
     stack = Stacker.push(stack, 3)
