@@ -16,7 +16,7 @@ defmodule Main do
       iex> inspect(stack)
       "Stack{data: [1, 2, 3]}"
   """
-  # @spec inspect(Stack.t(), any()) :: String.t()
+
   defimpl Inspect, for: Stack do
     def inspect(stack, _opts) do
       "Stack{data: #{inspect(stack.data)}}"
