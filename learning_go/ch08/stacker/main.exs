@@ -1,10 +1,8 @@
 # load dependencies
 Code.require_file("stack.exs", __DIR__)
-Code.require_file("stacker.exs", __DIR__)
 
 # use alias
 alias Stack
-alias Stacker
 
 defmodule Main do
   @doc """
@@ -25,17 +23,17 @@ defmodule Main do
 
   def run do
     stack = Stack.new()
-    stack = Stacker.push(stack, 1)
-    stack = Stacker.push(stack, 2)
-    stack = Stacker.push(stack, 3)
+    stack = Stack.push(stack, 1)
+    stack = Stack.push(stack, 2)
+    stack = Stack.push(stack, 3)
     IO.inspect(stack)
-    {item, stack} = Stacker.pop(stack)
+    {item, stack} = Stack.pop(stack)
     IO.inspect(item)
     IO.inspect(stack)
-    {item, stack} = Stacker.pop(stack)
+    {item, stack} = Stack.pop(stack)
     IO.inspect(item)
     IO.inspect(stack)
-    {item, stack} = Stacker.pop(stack)
+    {item, stack} = Stack.pop(stack)
     IO.inspect(item)
     IO.inspect(stack)
   end
