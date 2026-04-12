@@ -18,7 +18,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
+	defer file.Close()
 	bytes, err := reader.ReadAll(file)
 	if err != nil {
 		fmt.Println(err)
