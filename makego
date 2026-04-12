@@ -19,8 +19,36 @@ function help() {
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
     -R  to build and run a go directory with mod.go
+    -p  to generate a package file.
     "
 }
+
+
+# write out a basic package go file
+function generate_go_package_file {
+    filename="${1}"
+
+    [[ -e "${filename}" ]] && {
+        echo "The file ${filename} exists, and can't be overwritten."
+        exit 1
+    }
+
+    # basic golang line to write to file
+    package_name=$(basename "${filename}" .go)
+    echo "
+        package ${package_name}
+
+        import (
+            \"fmt\"
+        )
+
+        func packageDefaultFunc() {
+            fmt.Println(\"Start Here...\")
+        }
+
+        " > "${filename}"
+}
+
 
 # write out a basic go file
 function generate_go_file() {
@@ -92,7 +120,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:R:n:T:t:s:h"
+optstring="b:d:g:r:R:n:T:t:s:p:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -189,6 +217,19 @@ while getopts "${optstring}" opt; do
                 esac
             done
             ;;
+        p)
+            filename="${OPTARG}"
+
+            # call the function with parameters
+            file_extension_check "${filename,,}" "go"
+            generate_go_package_file "${filename}"
+            format_code "${filename}"
+
+            directory="${filename%.*}"
+            mkdir "${directory}" && mv "${filename}" "${directory}/${directory}.go"
+            cd "${directory}"
+            ;;
+
         n)
             filename="${OPTARG}"
             echo "Filename ${filename} is ignored."
