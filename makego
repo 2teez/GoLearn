@@ -220,12 +220,18 @@ while getopts "${optstring}" opt; do
         p)
             filename="${OPTARG}"
 
+            directory="${filename%.*}"
+
+            if [[ -d "${directory}" ]]; then
+                echo "Directory ${directory} already exists."
+                exit 1
+            fi
+
             # call the function with parameters
             file_extension_check "${filename,,}" "go"
             generate_go_package_file "${filename}"
             format_code "${filename}"
 
-            directory="${filename%.*}"
             mkdir "${directory}" && mv "${filename}" "${directory}/${directory}.go"
             cd "${directory}"
             ;;
