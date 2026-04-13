@@ -94,12 +94,12 @@ function format_code() {
 
 function make_a_test_file() {
     filename="${1}"
-    filename="${filename%.*}"
+    filename="${filename%.go}"
 
-     [[ -e "${filename}" ]] && {
-         echo "The file ${filename} exists, and can't be overwritten."
-         exit 1
-     }
+    [[ -e "${filename}_test.go" ]] && {
+        echo "The file ${filename}_test.go exists, and can't be overwritten."
+        exit 1
+    }
 
     echo "
         package ${filename}
