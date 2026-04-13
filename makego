@@ -11,10 +11,11 @@ function help() {
     =======
     -b  build and run a go file. This generate an executable file.
     -d  delete a go file.
+    -e  make a test file for the specified go file.
     -g  generate and run a generic go file.
     -h  print the help function of the script.
     -t  to run a test file in the current working directory
-    -T  to run a test on a standalone go file
+    -T  to make and run a test on a standalone go file
     -s  to create a standalone go file
     -n  to create all the files needed including the test file.
     -r  to run a specified go file
@@ -47,6 +48,35 @@ function generate_go_package_file {
         }
 
         " > "${filename}"
+}
+
+function generate_test_file {
+    filename="${1}"
+    test_filename="${filename%.go}_test.go"
+
+    [[ -e "${test_filename}" ]] && {
+        echo "The file ${test_filename} exists, and can't be overwritten."
+        exit 1
+    }
+
+    # basic golang line to write to file
+    # package name is the same as the filename without the .go extension
+    package_name=$(basename "${filename}" .go)
+    echo "
+        package ${package_name}
+
+        import (
+            \"testing\"
+        )
+
+        func TestDefaultFunc(t *testing.T) {
+            t.Parallel()
+            result := 1 + 3
+            if result != 4 {
+                t.Errorf(\"Expected 4, got %d\", result)
+            }
+        }
+    " > "${test_filename}"
 }
 
 
@@ -120,7 +150,7 @@ if [[ "${#}" -ne 2 ]]; then
 fi
 
 # options string to use
-optstring="b:d:g:r:R:n:T:t:s:p:h"
+optstring="b:d:e:g:r:R:n:T:t:s:p:h"
 
 while getopts "${optstring}" opt; do
     case "${opt}" in
@@ -164,6 +194,9 @@ while getopts "${optstring}" opt; do
                     ;;
                 esac
             done
+        ;;
+        e)
+            make_a_test_file "${OPTARG}"
         ;;
         g)
             filename="${OPTARG}"
