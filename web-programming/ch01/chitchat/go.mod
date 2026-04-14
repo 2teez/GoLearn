@@ -1,0 +1,3 @@
+module chitchat
+
+go 1.26.1
