@@ -17,7 +17,7 @@ type Item struct {
 }
 
 type Order struct {
-	TotalPrice  float64 `json:"totalprice"`
+	TotalPrice  float64 `json:"totalprice,omitempty"`
 	IsPaid      bool    `json:"paid"`
 	OrderDetail []Item  `json:"orderdetail"`
 	Fragile     bool    `json:"-"`
