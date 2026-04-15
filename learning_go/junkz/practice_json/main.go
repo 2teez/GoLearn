@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"practice_json/decode"
 	"practice_json/encode"
@@ -53,7 +54,7 @@ func main() {
 
 	// exercise
 	custData, err := decode.ReadJsonFile("cust.json")
-	fmt.Println(string(custData))
+	//fmt.Println(string(custData))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -65,5 +66,28 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	orders := []execr.Item{
+		execr.Item{Name: "Final Fantasy The Zodiac Age", Description: "Nintendo Switch Game", Quantity: 1, Price: 50.0},
+		execr.Item{Name: "Crystal Drinking Glass", Quantity: 11, Price: 25.0},
+	}
+
+	// add orders to the customer's purchase order
+	cust.PurchaseOrder.OrderDetail = append(cust.PurchaseOrder.OrderDetail, orders...)
+
+	// calculate total price
+	for _, item := range cust.PurchaseOrder.OrderDetail {
+		cust.PurchaseOrder.TotalPrice += item.Price * float64(item.Quantity)
+	}
+
+	// mark order as paid
+	cust.PurchaseOrder.IsPaid = true
 	fmt.Println(cust)
+
+	// get the original JSON data
+	original, err := json.MarshalIndent(cust, "", "  ")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(original))
 }

@@ -11,7 +11,7 @@ type Address struct {
 
 type Item struct {
 	Name        string  `json:"itemname"`
-	Description string  `json:"desc"`
+	Description string  `json:"desc,omitempty"`
 	Quantity    int     `json:"qty"`
 	Price       float64 `json:"price"`
 }
@@ -19,7 +19,7 @@ type Item struct {
 type Order struct {
 	TotalPrice  float64 `json:"totalprice"`
 	IsPaid      bool    `json:"paid"`
-	OrderDetail []Item  `json:"orderdetails"`
+	OrderDetail []Item  `json:"orderdetail"`
 	Fragile     bool    `json:"-"`
 }
 
