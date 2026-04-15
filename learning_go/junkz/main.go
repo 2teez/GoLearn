@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	timers "junkz/about-time"
+	"junkz/durations"
 	person "junkz/timer"
 	"time"
 )
@@ -33,4 +34,11 @@ func main() {
 		"\nDiff: ", nower.Sub(time_parsed), "\nAfter: ", nower.After(time_parsed),
 		"\nBefore: ", nower.Before(time_parsed), "\nEqual: ", nower.Equal(time_parsed),
 	)
+
+	// working with durations
+	durations.DurationsRun()
+	timeNow := time.Now()
+	fmt.Println(timeNow, "\tAfter 10 seconds: ", durations.AddSeconds(timeNow, 10))
+	fmt.Println(timeNow, "\tAfter 5 minute: ", durations.AddMinutes(timeNow, 5))
+	fmt.Println(timeNow, "\tAfter 1 hour: ", durations.AddHours(timeNow, 1))
 }
