@@ -1,4 +1,4 @@
-package student
+package decode
 
 import (
 	"encoding/json"
@@ -11,13 +11,13 @@ type Student struct {
 	MiddleInitial string   `json:"middle_initial"`
 	FirstName     string   `json:"first_name"`
 	Enrolled      bool     `json:"enrolled"`
-	Courses       []Course `json:"courses"`
+	Classes       []Course `json:"classes"`
 }
 
 type Course struct {
-	CourseName  string `json:"course_name"`
-	CourseNum   int    `json:"course_num"`
-	CourseHours int    `json:"course_hours"`
+	CourseName  string `json:"CourseName"`
+	CourseNum   int    `json:"CourseNum"`
+	CourseHours int    `json:"CourseHours"`
 }
 
 func ReadJsonFile(filename string) ([]byte, error) {

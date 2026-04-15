@@ -30,4 +30,18 @@ func main() {
 
 	decode.PersonDetails(person, &personData)
 	fmt.Println(personData)
+
+	studentData, err := decode.ReadJsonFile("stud.json")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	student := decode.Student{}
+	err = decode.ParseJson(studentData, &student)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(student)
+
 }
