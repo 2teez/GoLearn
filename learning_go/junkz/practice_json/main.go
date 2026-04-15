@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"practice_json/decode"
 	"practice_json/encode"
+	execr "practice_json/exer"
 )
 
 func main() {
@@ -50,4 +51,19 @@ func main() {
 	encoded := encode.Greet(greets)
 	fmt.Println(string(encoded))
 
+	// exercise
+	custData, err := decode.ReadJsonFile("cust.json")
+	fmt.Println(string(custData))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	cust := execr.Customer{}
+	err = execr.ParseJson(custData, &cust)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(cust)
 }

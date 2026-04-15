@@ -1,0 +1,20 @@
+{
+  "username": "blackhat",
+  "shipto": {
+    "street": "Sulphur Springs Rd",
+    "city": "Park City",
+    "state": "VA",
+    "zipcode": 12345
+  },
+  "order": {
+    "paid": false,
+    "orderdetail": [
+      {
+        "itemname": "A Guide to the World of zeros and ones",
+        "desc": "book",
+        "qty": 3,
+        "price": 50
+      }
+    ]
+  }
+}
