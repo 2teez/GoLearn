@@ -41,4 +41,18 @@ func main() {
 	fmt.Println(timeNow, "\tAfter 10 seconds: ", durations.AddSeconds(timeNow, 10))
 	fmt.Println(timeNow, "\tAfter 5 minute: ", durations.AddMinutes(timeNow, 5))
 	fmt.Println(timeNow, "\tAfter 1 hour: ", durations.AddHours(timeNow, 1))
+	//
+	start := time.Now()
+	time.Sleep(2 * time.Second)
+	end := time.Now()
+	fmt.Println(durations.ElapsedTime(start, end))
+
+	for _, place := range []string{"Europe/Italy", "Africa/Lagos",
+		"America/New_York", "Asia/Tokyo", "South America/Brazil"} {
+		if place, err := durations.GetTimeAndLocation(place); err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println(place)
+		}
+	}
 }
