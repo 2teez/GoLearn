@@ -1,9 +1,18 @@
 package encode
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
 )
 
-func packageDefaultFunc() {
-	fmt.Println("Start Here...")
+type Greeting struct {
+	Message string `json:"message"`
+}
+
+func Greet(s Greeting) []byte {
+	json, err := json.Marshal(s)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return json
 }

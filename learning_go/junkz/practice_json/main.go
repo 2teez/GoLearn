@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"practice_json/decode"
+	"practice_json/encode"
 )
 
 func main() {
@@ -43,5 +44,10 @@ func main() {
 		return
 	}
 	fmt.Println(student)
+
+	// Encoding
+	greets := encode.Greeting{Message: "Greeting from Perl!"}
+	encoded := encode.Greet(greets)
+	fmt.Println(string(encoded))
 
 }
