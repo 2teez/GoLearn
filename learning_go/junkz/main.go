@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	timers "junkz/about-time"
 	person "junkz/timer"
 	"time"
 )
 
 func main() {
+	// struct with time
 	java := person.NewPerson("java", "james", time.Date(1995, 1, 1, 0, 0, 0, 0, time.UTC))
 	clojure := person.NewPerson("clojure", "clojure", time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC))
 	elixir := person.NewPerson("elixir", "elixir", time.Date(2010, 1, 1, 0, 0, 0, 0, time.UTC))
@@ -21,4 +23,6 @@ func main() {
 	aperson := person.NewPerson("aperson", "aperson", time.Date(2024, 12, 31, 0, 0, 0, 0, time.UTC))
 	fmt.Printf("%s is %d months old at %s\n", aperson.FirstName, aperson.CalculateMonthAgeAt(now), now)
 
+	// Practice with Timer
+	timers.RunTimer()
 }
