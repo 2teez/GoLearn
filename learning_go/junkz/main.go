@@ -25,4 +25,12 @@ func main() {
 
 	// Practice with Timer
 	timers.RunTimer()
+	timers.RunTimer2()
+	fmt.Println(timers.WhatSayTime())
+	nower := time.Now()
+	time_parsed, _ := time.Parse(time.RFC3339, "2026-01-01T00:00:00Z")
+	fmt.Println(nower, "\nTime Parsed: ", time_parsed,
+		"\nDiff: ", nower.Sub(time_parsed), "\nAfter: ", nower.After(time_parsed),
+		"\nBefore: ", nower.Before(time_parsed), "\nEqual: ", nower.Equal(time_parsed),
+	)
 }
