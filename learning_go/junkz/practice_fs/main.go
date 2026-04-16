@@ -5,8 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"practice_fs/csvs"
 	"practice_fs/files"
 	"practice_fs/flags"
+	"strconv"
+	"strings"
 )
 
 func main() {
@@ -39,4 +42,31 @@ func main() {
 		log.Fatal(err)
 	}
 	writer.Write(json)
+
+	// using csvs package
+	type Record struct {
+		Firstname string `json:"firstname"`
+		Lastname  string `json:"lastname"`
+		Age       int    `json:"age"`
+	}
+
+	//
+	csvData := csvs.Read("names.csv")
+	personalData := make([]Record, 0, len(csvData)-1)
+	for _, record := range csvData[1:] {
+		age, _ := strconv.Atoi(strings.TrimSpace(record[2]))
+		personalData = append(personalData, Record{
+			Firstname: record[0],
+			Lastname:  record[1],
+			Age:       age,
+		})
+	}
+	fmt.Println(personalData)
+	/*
+			json, err = json.MarshalIndent([]byte(`personalData`), "", " ")
+		if err != nil {
+			log.Fatal(err)
+		}
+		writer.Write(json)
+	*/
 }
