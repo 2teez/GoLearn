@@ -2,6 +2,7 @@ package routine
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -17,6 +18,14 @@ func Summation(params IterationParams) int {
 		sum += i
 	}
 	return sum
+}
+
+func SummationWithWaitGroup(params IterationParams, wg *sync.WaitGroup, result *int) {
+	*result = 0
+	for i := params.Start; i <= params.Stop; i += params.Step {
+		*result += i
+	}
+	wg.Done()
 }
 
 func Routine() {
