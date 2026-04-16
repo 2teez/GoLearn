@@ -3,6 +3,7 @@ package routine
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -18,6 +19,13 @@ func Summation(params IterationParams) int {
 		sum += i
 	}
 	return sum
+}
+
+func SummationWithAtomicOperations(params IterationParams, wg *sync.WaitGroup, result *int32) {
+	for i := params.Start; i <= params.Stop; i += params.Step {
+		atomic.AddInt32(result, int32(i))
+	}
+	wg.Done()
 }
 
 func SummationWithWaitGroup(params IterationParams, wg *sync.WaitGroup, result *int) {

@@ -33,4 +33,19 @@ func main() {
 		wg.Wait()
 		fmt.Println(sumResult1, sumResult2)
 	}
+	{ // using goroutines with sync/atomic
+		var sumResult int32
+		var wg sync.WaitGroup
+		wg.Add(4)
+		go r.SummationWithAtomicOperations(
+			struct{ Start, Stop, Step int }{1, 25, 1}, &wg, &sumResult)
+		go r.SummationWithAtomicOperations(
+			struct{ Start, Stop, Step int }{26, 50, 1}, &wg, &sumResult)
+		go r.SummationWithAtomicOperations(
+			struct{ Start, Stop, Step int }{51, 75, 1}, &wg, &sumResult)
+		go r.SummationWithAtomicOperations(
+			struct{ Start, Stop, Step int }{76, 100, 1}, &wg, &sumResult)
+		wg.Wait()
+		fmt.Println(sumResult)
+	}
 }
