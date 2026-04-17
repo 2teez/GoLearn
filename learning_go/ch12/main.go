@@ -48,4 +48,15 @@ func main() {
 		wg.Wait()
 		fmt.Println(sumResult)
 	}
+	{ // using goroutines with string result
+		var sumResult string
+		var wg sync.WaitGroup
+		wg.Add(4)
+		go r.SummationWithString(1, 25, &wg, &sumResult)
+		go r.SummationWithString(26, 50, &wg, &sumResult)
+		go r.SummationWithString(51, 75, &wg, &sumResult)
+		go r.SummationWithString(76, 100, &wg, &sumResult)
+		wg.Wait()
+		fmt.Println(sumResult)
+	}
 }

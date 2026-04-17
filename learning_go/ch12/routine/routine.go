@@ -21,6 +21,13 @@ func Summation(params IterationParams) int {
 	return sum
 }
 
+func SummationWithString(start, stop int, wg *sync.WaitGroup, result *string) {
+	for i := start; i <= stop; i++ {
+		*result += fmt.Sprintf("|%d|", i)
+	}
+	wg.Done()
+}
+
 func SummationWithAtomicOperations(params IterationParams, wg *sync.WaitGroup, result *int32) {
 	for i := params.Start; i <= params.Stop; i += params.Step {
 		atomic.AddInt32(result, int32(i))
