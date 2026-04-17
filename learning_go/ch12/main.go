@@ -4,6 +4,7 @@ import (
 	c "ch12/channels"
 	r "ch12/routine"
 	"fmt"
+	"log"
 	"sync"
 	"time"
 )
@@ -68,5 +69,19 @@ func main() {
 		ch <- "Hello, John Travotal"
 		fmt.Println(<-ch)
 		fmt.Println(<-ch)
+		//
+		oneToHundredChan := make(chan int, 100)
+		go c.Push(1, 25, oneToHundredChan)
+		go c.Push(26, 50, oneToHundredChan)
+		go c.Push(51, 75, oneToHundredChan)
+		go c.Push(76, 100, oneToHundredChan)
+
+		sum := 0
+		for i := 0; i < 100; i++ {
+			c := <-oneToHundredChan
+			log.Println(c)
+			sum += c
+		}
+		log.Println(sum)
 	}
 }
