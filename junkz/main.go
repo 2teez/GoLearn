@@ -7,11 +7,11 @@ import (
 
 func main() {
 	numbers := []int{1, 2, 1, 2, 5, 8}
-	min, max := min_max(numbers)
-	fmt.Println(find_missing_number(min, max, numbers))
+	min, max := minMax(numbers)
+	fmt.Println(findMissingNumbers(min, max, numbers))
 }
 
-func min_max(numbers []int) (int, int) {
+func minMax(numbers []int) (int, int) {
 	var min, max int
 	if len(numbers) == 0 {
 		return min, max
@@ -28,9 +28,9 @@ func min_max(numbers []int) (int, int) {
 	return min, max
 }
 
-func find_missing_number(min, max int, number []int) []int {
+func findMissingNumbers(min, max int, number []int) []int {
 	var result []int
-	number = removeDuplicate(number)
+	number = removeDuplicates(number)
 	for i := min; i < max; i++ {
 		if slices.Contains(number, i) {
 			continue
@@ -40,13 +40,13 @@ func find_missing_number(min, max int, number []int) []int {
 	return result
 }
 
-func removeDuplicate(numbers []int) []int {
+func removeDuplicates(numbers []int) []int {
 	newNumber := map[int]struct{}{}
 	for _, key := range numbers {
 		newNumber[key] = struct{}{}
 	}
 	var keys []int
-	for key, _ := range newNumber {
+	for key := range newNumber {
 		keys = append(keys, key)
 	}
 	return keys
