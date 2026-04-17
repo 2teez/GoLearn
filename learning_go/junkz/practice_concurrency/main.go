@@ -1,34 +1,24 @@
 package main
 
 import (
-	"fmt"
+	m "practice_concurrency/mutexes"
 	"sync"
 )
 
 func main() {
 
-	{ // anonymous function goroutine
-		// without parameters
-		var wg sync.WaitGroup
-		wg.Add(3)
-		for _, salutation := range []string{"hello", "greetings", "good day"} {
-			go func() {
-				defer wg.Done()
-				fmt.Println(salutation)
-			}()
-		}
-		wg.Wait()
-	}
+	//a.RunNonAnons()
+	//a.RunAnons()
 
-	{ // anonymous function goroutine
-		// with parameters
+	// using Mutex
+	{
 		var wg sync.WaitGroup
-		wg.Add(1)
-		for _, salutation := range []string{"hello", "greetings", "good day"} {
-			go func(salutation string) {
-				defer wg.Done()
-				fmt.Println(salutation)
-			}(salutation)
+		var lock sync.Mutex
+		var counter int
+		for i := 0; i < 5; i++ {
+			wg.Add(2)
+			go m.Increment(&wg, &lock, &counter)
+			go m.Decrement(&wg, &lock, &counter)
 		}
 		wg.Wait()
 	}
