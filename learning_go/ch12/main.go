@@ -1,6 +1,7 @@
 package main
 
 import (
+	c "ch12/channels"
 	r "ch12/routine"
 	"fmt"
 	"sync"
@@ -58,5 +59,14 @@ func main() {
 		go r.SummationWithString(76, 100, &wg, &sumResult)
 		wg.Wait()
 		fmt.Println(sumResult)
+	}
+
+	{
+		// using goroutines with channels
+		ch := make(chan string)
+		go c.Greet(ch)
+		ch <- "Hello, John Travotal"
+		fmt.Println(<-ch)
+		fmt.Println(<-ch)
 	}
 }
