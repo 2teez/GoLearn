@@ -1,9 +1,9 @@
 package channels
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func packageDefaultFunc() {
-	fmt.Println("Start Here...")
+func Greet(ch chan string) {
+	msg := <-ch
+	ch <- fmt.Sprintf("Thanks for %s", msg)
+	ch <- "Hello, " + "Master!"
 }
