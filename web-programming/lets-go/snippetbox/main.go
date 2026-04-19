@@ -20,8 +20,8 @@ func snippetCreate(w http.ResponseWriter, r *http.Request) {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
-	mux.HandleFunc("/snippet/view", home)
-	mux.HandleFunc("/snippet/create", home)
+	mux.HandleFunc("/snippet/view", snippetView)
+	mux.HandleFunc("/snippet/create", snippetCreate)
 
 	server := &http.Server{
 		Addr:    "127.0.0.1:4000",
