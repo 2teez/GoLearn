@@ -18,13 +18,16 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 }
 
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		w.Header().Set("Allow", "POST")
+	// if r.Method != "POST" {
+	// use http constants like http.MethodPost
+	if r.Method != http.MethodPost {
+		w.Header().Set("Allow", http.MethodPost)
 		// w.WriteHeader(405)
 		// w.Write([]byte("Method Not Allowed"))
 		// instead of the two method above use
 		// http.Error like so
-		http.Error(w, "Method Not Allowed", 405)
+		// And use http const http.StatusMethodNotAllowed instead of 405
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	w.Write([]byte("Create a new snippet...."))
