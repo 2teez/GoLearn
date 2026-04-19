@@ -1,20 +1,30 @@
 package main
 
 import (
-	"net/http"
 	"log"
+	"net/http"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello from Snippetbox"))
 }
 
+func snippetView(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Display a specific snippet..."))
+}
+
+func snippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Create a new snippet...."))
+}
+
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
+	mux.HandleFunc("/snippet/view", home)
+	mux.HandleFunc("/snippet/create", home)
 
-	server := &http.Server {
-		Addr: "127.0.0.1:4000",
+	server := &http.Server{
+		Addr:    "127.0.0.1:4000",
 		Handler: mux,
 	}
 
