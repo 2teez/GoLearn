@@ -15,13 +15,19 @@ func home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ts, err := template.ParseFiles("internal/ui/html/pages/home.tmpl")
+	files := []string{
+		"internal/ui/html/pages/home.tmpl",
+		"internal/ui/html/partial/nav.tmpl",
+		"internal/ui/html/base.tmpl",
+	}
+
+	ts, err := template.ParseFiles(files...)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = ts.Execute(w, nil)
+	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
