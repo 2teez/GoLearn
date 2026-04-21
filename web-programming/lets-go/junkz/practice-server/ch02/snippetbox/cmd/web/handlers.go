@@ -9,7 +9,13 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	ts, err := template.ParseFiles("./ui/html/pages/home.tmpl")
+
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
+	ts, err := template.ParseFiles("internal/ui/html/pages/home.tmpl")
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -21,11 +27,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	w.Write([]byte("Hello from Snippetbox"))
+
+	// w.Write([]byte("Hello from Snippetbox"))
 }
 
 func snippetView(w http.ResponseWriter, r *http.Request) {
