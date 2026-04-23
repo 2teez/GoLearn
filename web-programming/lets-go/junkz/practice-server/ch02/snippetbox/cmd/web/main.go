@@ -7,6 +7,12 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
+
+	// http server
+	file_server := http.FileServer(http.Dir("internal/ui/static/"))
+
+	mux.Handle("/static/", http.StripPrefix("/static", file_server))
+
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/snippet/view", snippetView)
 	mux.HandleFunc("/snippet/create", snippetCreate)
