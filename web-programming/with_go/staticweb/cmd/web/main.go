@@ -8,12 +8,12 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	file_server := http.FileServer(http.Dir("/public/"))
-	mux.Handle("/public/", http.StripPrefix("/public", file_server))
+	file_server := http.FileServer(http.Dir("public"))
+	mux.Handle("/public/", http.StripPrefix("/public/", file_server))
 
 	mux.HandleFunc("/", home)
 
-	server := http.Server{
+	server := &http.Server{
 		Addr:    "127.0.0.1:4100",
 		Handler: mux,
 	}
