@@ -34,7 +34,7 @@ func RunProductCustomTypes() {
 	type DiscountedProduct struct {
 		Product  *Product `json:"product"`
 		Cost     float64  `json:"cost"`
-		Discount float64  `json:"discount"`
+		Discount float64  `json:"discount,string"`
 	}
 
 	makeNewProduct := func(name string, price float64) *Product {
@@ -51,12 +51,20 @@ func RunProductCustomTypes() {
 	p := makeNewProduct("apple", 1.99)
 	dp := makeDiscountedProduct(p, 0.1)
 
-	json, err := json.Marshal(dp)
+	jsonMarshaller, err := json.Marshal(dp)
 	if err != nil {
 		log.Println(err)
 	}
 
-	fmt.Println(string(json))
+	fmt.Println(string(jsonMarshaller))
+	//
+	fmt.Println("Using Encoder....")
+	var output strings.Builder
+	encoder := json.NewEncoder(&output)
+	encoder.Encode(dp)
+	encoder.Encode(p)
+
+	fmt.Println(output.String())
 }
 
 func RunEncodeCustomTypes() {
