@@ -17,6 +17,7 @@ func main() {
 
 	e.RunEncodeDefaultTypes()
 	e.RunEncodeCustomTypes()
+	e.RunProductCustomTypes()
 	/*
 		 	jsonData, err := json.Marshal(names)
 			if err != nil {

@@ -3,6 +3,7 @@ package encoder
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 )
@@ -22,6 +23,40 @@ func RunEncodeDefaultTypes() {
 	encoder.Encode(arrays)
 
 	fmt.Println(output.String())
+}
+
+func RunProductCustomTypes() {
+	type Product struct {
+		Name  string  `json:"name"`
+		Price float64 `json:"price"`
+	}
+
+	type DiscountedProduct struct {
+		Product  *Product `json:"product"`
+		Cost     float64  `json:"cost"`
+		Discount float64  `json:"discount"`
+	}
+
+	makeNewProduct := func(name string, price float64) *Product {
+		return &Product{Name: name, Price: price}
+	}
+	makeDiscountedProduct := func(p *Product, discount float64) *DiscountedProduct {
+		return &DiscountedProduct{
+			Product:  makeNewProduct(p.Name, p.Price),
+			Cost:     p.Price - p.Price*discount,
+			Discount: discount,
+		}
+	}
+
+	p := makeNewProduct("apple", 1.99)
+	dp := makeDiscountedProduct(p, 0.1)
+
+	json, err := json.Marshal(dp)
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Println(string(json))
 }
 
 func RunEncodeCustomTypes() {
