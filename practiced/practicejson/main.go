@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	d "practicejson/decoder"
 	e "practicejson/encoder"
 )
 
@@ -18,6 +19,7 @@ func main() {
 	e.RunEncodeDefaultTypes()
 	e.RunEncodeCustomTypes()
 	e.RunProductCustomTypes()
+	d.DecodeConfigFile("config.json")
 	/*
 		 	jsonData, err := json.Marshal(names)
 			if err != nil {
